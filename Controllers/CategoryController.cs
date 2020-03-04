@@ -21,7 +21,7 @@ namespace Treat.Controllers
             _unitOfWork = unitOfWork;
 
         }
-        //just checking
+     
         [HttpGet]
         public IActionResult Get()
         {
