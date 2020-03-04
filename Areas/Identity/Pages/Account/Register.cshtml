@@ -1,0 +1,118 @@
+﻿@page
+@model Treat.Areas.Identity.Pages.Account.RegisterModel
+@using Taste.Utility
+@{
+    ViewData["Title"] = "Register";
+}
+
+
+<form method="post" autocomplete="off" asp-route-returnUrl="@Model.ReturnUrl">
+
+    <div class="py-4 my-4">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="row form-group">
+                <div class="col-8 offset-2">
+                    <div class="card">
+
+                        <div class="card-body px-lg-5 pt-4">
+                            <h3 class="col-12 text-success text-center py-4"><strong>Sign up</strong></h3>
+                            <hr />
+                            <div class="form-row py-2">
+                                <div class="col">
+                                    <div>
+                                        <input type="text" asp-for="Input.FirstName" placeholder="First Name" class="form-control" autocomplete="off" />
+                                        <span asp-validation-for="Input.FirstName" class="text-danger"></span>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div>
+                                        <input type="text" asp-for="Input.LastName" placeholder="Last Name" class="form-control" autocomplete="off" />
+                                        <span asp-validation-for="Input.LastName" class="text-danger"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="py-2">
+                                <input type="email" asp-for="Input.Email" placeholder="Email" class="form-control" autocomplete="off" />
+                                <span asp-validation-for="Input.Email" class="text-danger"></span>
+
+                            </div>
+                            <div class="py-2">
+                                <input type="text" asp-for="Input.PhoneNumber" placeholder="Phone Number" autocomplete="off" class="form-control" />
+                                <span asp-validation-for="Input.PhoneNumber" class="text-danger"></span>
+
+                            </div>
+                            <div class="py-2">
+                                <input type="password" asp-for="Input.Password" placeholder="Password" autocomplete="off" class="form-control" />
+                                <span asp-validation-for="Input.Password" class="text-danger"></span>
+
+                            </div>
+                            <div class="py-2">
+                                <input type="password" asp-for="Input.ConfirmPassword" placeholder="Confirm Password" autocomplete="off" class="form-control" />
+                                <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
+
+                            </div>
+                            <div class="py-2">
+                                <input type="radio" name="rdUserRole" value="@SD.kitchenRole" />@SD.kitchenRole
+                                <input type="radio" name="rdUserRole" value="@SD.FrontDeskRole" />@SD.FrontDeskRole
+                                <input type="radio" name="rdUserRole" value="@SD.ManagerRole" />@SD.ManagerRole
+                                <input type="radio" name="rdUserRole" value="@SD.CustomerRole" />@SD.CustomerRole
+                            </div>
+                            <div class="py-2">
+                                <button type="submit" class="btn btn-success form-control">Register</button>
+                            </div>
+                            <hr/>
+                            <p>
+                                By Clicking <em>Register</em> you agree to our<a href="" target="_blank"> terms of service</a>
+                            </p>
+
+
+                        </div>
+                </div>
+
+            </div>
+        </div>
+    
+    </div>
+</form>
+
+
+
+<div class="row">
+    <div class="col-md-4">
+       
+    </div>
+    <div class="col-md-6 col-md-offset-2">
+        <section>
+            <h4>Use another service to register.</h4>
+            <hr />
+            @{
+                if ((Model.ExternalLogins?.Count ?? 0) == 0)
+                {
+                    <div>
+                        <p>
+                            There are no external authentication services configured. See <a href="https://go.microsoft.com/fwlink/?LinkID=532715">this article</a>
+                            for details on setting up this ASP.NET application to support logging in via external services.
+                        </p>
+                    </div>
+                }
+                else
+                {
+                    <form id="external-account" asp-page="./ExternalLogin" asp-route-returnUrl="@Model.ReturnUrl" method="post" class="form-horizontal">
+                        <div>
+                            <p>
+                                @foreach (var provider in Model.ExternalLogins)
+                                {
+                                    <button type="submit" class="btn btn-primary" name="provider" value="@provider.Name" title="Log in using your @provider.DisplayName account">@provider.DisplayName</button>
+                                }
+                            </p>
+                        </div>
+                    </form>
+                }
+            }
+        </section>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
